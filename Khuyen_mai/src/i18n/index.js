@@ -2,7 +2,7 @@ import { createI18n } from "vue-i18n";
 
 // Define messages for supported languages
 const messages = {
-  en: {
+  en: {  
     project_name: "Registration of awards",
     username: "Username",
     username_placeholder: "Enter user name",
