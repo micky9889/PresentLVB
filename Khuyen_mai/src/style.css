@@ -1,0 +1,27 @@
+:root {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  }
+  
+
+@font-face {
+    font-family: "Saysettha";
+    src: url("./assets/fonts/saysettha_ot.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "notosans lao loop";
+    src: url("./assets/fonts/NotoSansLaoLooped_Condensed-Light.ttf");
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Time New Romans";
+    src: url("./assets/fonts/times\ new\ roman.ttf");
+    font-weight: normal;
+    font-style: normal;
+  }
+  * {
+    font-family: "Times New Roman", "Saysettha", sans-serif; /* Apply font globally */
+  }
+  
