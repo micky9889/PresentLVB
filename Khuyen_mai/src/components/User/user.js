@@ -129,116 +129,6 @@ export default function useUser() {
       fullscreenLoading.value = false;
     }
   };
-  //version old
-  // const filteredData = computed(() => {
-  //   return  statusName.value=="R"?accountDataR.value.filter((item) => {
-  //     const matchesSearchTerm =
-  //       item.ACCOUNT_NO.toLowerCase().includes(
-  //         searchTerm.value.toLowerCase()
-  //       ) ||
-  //       item.ACCOUNT_NAME.toLowerCase().includes(
-  //         searchTerm.value.toLowerCase()
-  //       );
-  //     //range balance
-  //     // const matchesBalanceRange = (() => {
-  //     //   if (!selectedBalanceRange.value) return true; // If no range selected, include all
-  //     //   const [min, max] = selectedBalanceRange.value.split("-").map(Number);
-  //     //   const balance = item.BALANCE;
-  //     //   return balance >= (min || 0) && (max ? balance <= max : true);
-  //     // })();
-
-  //     //present name
-  //     // const matchesPresentName = presentName.value
-  //     //   ? item.PS_ID === presentName.value
-  //     //   : true;
-
-  //     //Status
-
-  //     const matchesStatus = statusName.value
-  //       ? item.STATUS === statusName.value
-  //       : true;
-
-  //     // Date filtering logic
-  //     const matchesDateRange = (() => {
-  //       if (!selectedDateRange.value || selectedDateRange.value.length !== 2)
-  //         return true; // If no date range is selected, include all
-  //       const [startDate, endDate] = selectedDateRange.value;
-
-  //       const dateOpen = new Date(item.DATE_OPEN).setHours(0, 0, 0, 0);
-  //       const start = new Date(startDate).setHours(0, 0, 0, 0);
-  //       const end = new Date(endDate).setHours(23, 59, 59, 0);
-
-  //       return dateOpen >= start && dateOpen <= end;
-  //     })();
-
-  //     //match Creator
-  //     const matchCreator = profile.value.EMPNAME
-  //       ? item.EMP_NAME === profile.value.EMPNAME
-  //       : true;
-
-  //     return (
-  //       matchesSearchTerm &&
-  //       matchesStatus &&
-  //       // matchesBalanceRange &&
-  //       // matchesPresentName &&
-  //       matchCreator &&
-  //       matchesDateRange
-  //     );
-  //   }) : accountData.value.filter((item) => {
-  //     const matchesSearchTerm =
-  //       item.ACCOUNT_NO.toLowerCase().includes(
-  //         searchTerm.value.toLowerCase()
-  //       ) ||
-  //       item.ACCOUNT_NAME.toLowerCase().includes(
-  //         searchTerm.value.toLowerCase()
-  //       );
-  //     //range balance
-  //     // const matchesBalanceRange = (() => {
-  //     //   if (!selectedBalanceRange.value) return true; // If no range selected, include all
-  //     //   const [min, max] = selectedBalanceRange.value.split("-").map(Number);
-  //     //   const balance = item.BALANCE;
-  //     //   return balance >= (min || 0) && (max ? balance <= max : true);
-  //     // })();
-
-  //     //present name
-  //     // const matchesPresentName = presentName.value
-  //     //   ? item.PS_ID === presentName.value
-  //     //   : true;
-
-  //     //Status
-
-  //     const matchesStatus = statusName.value
-  //       ? item.STATUS === statusName.value
-  //       : true;
-
-  //     // Date filtering logic
-  //     const matchesDateRange = (() => {
-  //       if (!selectedDateRange.value || selectedDateRange.value.length !== 2)
-  //         return true; // If no date range is selected, include all
-  //       const [startDate, endDate] = selectedDateRange.value;
-
-  //       const dateOpen = new Date(item.DATE_OPEN).setHours(0, 0, 0, 0);
-  //       const start = new Date(startDate).setHours(0, 0, 0, 0);
-  //       const end = new Date(endDate).setHours(23, 59, 59, 0);
-
-  //       return dateOpen >= start && dateOpen <= end;
-  //     })();
-
-  //     //match Creator
-  //     const matchCreator = profile.value.EMPNAME
-  //       ? item.EMP_NAME === profile.value.EMPNAME
-  //       : true;
-
-  //     return (
-  //       matchesSearchTerm &&
-  //       matchesStatus &&
-  //       // matchesBalanceRange &&
-  //       // matchesPresentName &&
-  //       matchCreator &&
-  //       matchesDateRange
-  //     );
-  //   });
-  // });
   //refactor filter
   const filteredData = computed(() => {
     const applyFilters = (item) => {
@@ -273,7 +163,9 @@ export default function useUser() {
         : true;
 
       return (
-        matchesSearchTerm && matchesStatus && matchesCreator && matchesDateRange
+        matchesSearchTerm && matchesStatus && 
+        matchesCreator &&
+         matchesDateRange
       );
     };
 
@@ -340,6 +232,7 @@ export default function useUser() {
   // Open the create modal
   const openCreateModal = async () => {
     resetNewPresent();
+    getStock()
     profile.value = JSON.parse(localStorage.getItem("Profile"));
     newPresent.value.BRN_CODE = profile.value.BRN_CODE;
     isCreateModalVisible.value = true;
@@ -350,11 +243,7 @@ export default function useUser() {
     profile.value = JSON.parse(localStorage.getItem("Profile"));
     isUpdateModalVisible.value = true;
     dataToClose.value = item;
-    // await updateQuantity(item);
     editPresent.value = { ...item };
-    // dataGift.value = dataStock.value.filter(
-    //   (item) => item.BRN_CODE === profile.value.BRN_CODE && item.QUANTITY > 0
-    // );
   };
   //close model edit
   const closeEditModal = async () => {
@@ -363,59 +252,7 @@ export default function useUser() {
     if (noSave.value) {
       save.value = false;
     }
-    // await updateQuantity(dataToClose.value);
   };
-  //update quantity
-  // const updateQuantity = async (item) => {
-  //   try {
-  //     if (noSave.value) {
-  //       if (dataStock.value && Array.isArray(dataStock.value)) {
-  //         stock.value =
-  //           dataStock.value.filter(
-  //             (value) =>
-  //               value.BRN_CODE === item.BRN_CODE && value.PS_ID === item.PS_ID
-  //           )[0].QUANTITY - 1;
-  //       }
-  //     } else if (save.value) {
-  //       return;
-  //     } else {
-  //       if (dataStock.value && Array.isArray(dataStock.value)) {
-  //         stock.value =
-  //           dataStock.value.filter(
-  //             (value) =>
-  //               value.BRN_CODE === item.BRN_CODE && value.PS_ID === item.PS_ID
-  //           )[0].QUANTITY + 1;
-  //       }
-  //     }
-  //     const body = {
-  //       PS_ID: item.PS_ID,
-  //       QTT: stock.value,
-  //       BRN_CODE: item.BRN_CODE,
-  //       EMP_NAME: item.EMP_NAME || profile.value.EMPNAME,
-  //       ACTION: "UPDATE", // Specify that this is an update action
-  //     };
-
-  //     const token = JSON.parse(localStorage.getItem("token"));
-  //     const response = await axios.post(
-  //       apiUrl + "/present/stock/insert",
-  //       body,
-  //       {
-  //         headers: { access_token: token, api_key: "AX347Z" },
-  //       }
-  //     );
-
-  //     if (response.data.error === "0") {
-  //       ElMessage.success("Present updated successfully!");
-  //       // loadData(); // Reload data after editing
-  //       await getStock();
-  //     } else {
-  //       ElMessage.error(response.data.message);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //     ElMessage.error("Failed to update present");
-  //   }
-  // };
 
   //save Edit
   const saveEditPresent = async () => {
@@ -605,9 +442,6 @@ export default function useUser() {
   };
 
   const filteredGifts = computed(() => {
-    // console.log('BRN_CODE',newPresent.value.BRN_CODE);
-    // console.log('pro_BRN_CODE', profile.value.BRN_CODE);
-
     const invalidStockItems = dataStock.value.filter(
       (item) => item.BRN_CODE === newPresent.value.BRN_CODE && item.QUANTITY > 0
     );
@@ -642,7 +476,6 @@ export default function useUser() {
     getStock();
     loadPresent();
     getBranchList();
-    // dataRejection()
   });
   return {
     Position,
