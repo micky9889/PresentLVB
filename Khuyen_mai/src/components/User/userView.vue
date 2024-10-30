@@ -264,20 +264,7 @@
       width="70vw"
     >
       <el-form :model="newPresent" label-width="auto">
-        <el-form-item :label="$t('present_name')" required>
-          <el-select
-            v-model="newPresent.PS_ID"
-            :placeholder="$t('select_present')"
-            clearable
-          >
-            <el-option
-              v-for="data in filteredGifts"
-              :key="data.PS_ID"
-              :label="getPresentName(data)"
-              :value="data.PS_ID"
-            />
-          </el-select>
-        </el-form-item>
+      
         <!-- <el-form-item :label="$t('qtt')" required>
           <el-input
             v-model="newPresent.QTT"
@@ -296,6 +283,21 @@
               :key="branch.BRN_CODE"
               :label="branch.BRN_NAME"
               :value="branch.BRN_CODE"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item :label="$t('present_name')" required>
+          <el-select
+            v-model="newPresent.PS_ID"
+            :placeholder="$t('select_present')"
+            clearable
+            :disabled="!newPresent.BRN_CODE"
+          >
+            <el-option
+              v-for="data in filteredGifts"
+              :key="data.PS_ID"
+              :label="getPresentName(data)"
+              :value="data.PS_ID"
             />
           </el-select>
         </el-form-item>

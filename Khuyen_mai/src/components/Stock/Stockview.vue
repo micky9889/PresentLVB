@@ -45,6 +45,7 @@
 
       <!-- Create Button -->
       <div
+        v-if="profile.DEP_CODE === 'LVB010010'"
         style="
           display: flex;
           flex-direction: column;
@@ -105,7 +106,7 @@
         align="center"
       ></el-table-column>
       <!-- action -->
-      <el-table-column :label="$t('action')" align="center">
+      <el-table-column :label="$t('action')" align="center"   v-if="profile.DEP_CODE === 'LVB010010'">
         <template #default="scope">
           <el-icon
             color="#409efc"
@@ -244,7 +245,7 @@ const {
   validateNumber,
   checkQuantityInput,
   getPresentName,
-  removeRegister
+  removeRegister,
 } = useStock();
 </script>
 
