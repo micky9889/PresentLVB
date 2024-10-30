@@ -158,14 +158,19 @@ export default function useUser() {
       // console.log(item.EMP_NAME);
       // console.log(profile.value.EMPNAME);
 
-      const matchesCreator = profile.value.EMPNAME
-        ? item.EMP_NAME.trim() === profile.value.EMPNAME.trim()
-        : true;
+      const matchesCreator =
+        //only admin
+        profile.value.USERAD === "ADMIN" &&
+        profile.value.POSITION === "ADMIN" &&
+        profile.value.EMPID === "ADMIN"
+          ? true
+          : //
+          profile.value.EMPNAME
+          ? item.EMP_NAME.trim() === profile.value.EMPNAME.trim()
+          : true;
 
       return (
-        matchesSearchTerm && matchesStatus && 
-        matchesCreator &&
-         matchesDateRange
+        matchesSearchTerm && matchesStatus && matchesCreator && matchesDateRange
       );
     };
 
@@ -232,7 +237,7 @@ export default function useUser() {
   // Open the create modal
   const openCreateModal = async () => {
     resetNewPresent();
-    getStock()
+    getStock();
     profile.value = JSON.parse(localStorage.getItem("Profile"));
     newPresent.value.BRN_CODE = profile.value.BRN_CODE;
     isCreateModalVisible.value = true;
@@ -469,6 +474,15 @@ export default function useUser() {
       dataRejection();
     }
   });
+  watch(
+    () => newPresent.value.BRN_CODE,
+    (newVal, oldVal) => {
+      if (newVal !== oldVal) {
+        newPresent.value.PS_ID = null;
+      }
+    }
+  );
+
   onMounted(() => {
     profile.value = JSON.parse(localStorage.getItem("Profile"));
     statusName.value = "P";

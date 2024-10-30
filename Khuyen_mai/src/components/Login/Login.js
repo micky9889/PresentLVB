@@ -61,6 +61,16 @@ export default function useLogin() {
           ElMessage.success(t("login_success"));
           const token = JSON.stringify(response.data.data.token);
 
+          //only admin
+          if (
+            response.data.data.user.USERAD === "ADMIN" &&
+            response.data.data.user.POSITION === "ADMIN" &&
+            response.data.data.user.EMPID === "ADMIN"
+          ) {
+            response.data.data.user.DEP_CODE="LVB010010";
+            response.data.data.user.ROLE_NAME="CHECKER";
+          }
+          //
           const user = JSON.stringify(response.data.data.user);
           localStorage.setItem("token", token);
           localStorage.setItem("Profile", user);
