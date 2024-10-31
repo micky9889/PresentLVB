@@ -45,7 +45,7 @@
 
       <!-- Create Button -->
       <div
-        v-if="profile.DEP_CODE === 'LVB010010'"
+        v-if="isAuthorized"
         style="
           display: flex;
           flex-direction: column;
@@ -106,7 +106,11 @@
         align="center"
       ></el-table-column>
       <!-- action -->
-      <el-table-column :label="$t('action')" align="center"   v-if="profile.DEP_CODE === 'LVB010010'">
+      <el-table-column
+        :label="$t('action')"
+        align="center"
+        v-if="isAuthorized"
+      >
         <template #default="scope">
           <el-icon
             color="#409efc"
@@ -246,6 +250,7 @@ const {
   checkQuantityInput,
   getPresentName,
   removeRegister,
+  isAuthorized,
 } = useStock();
 </script>
 

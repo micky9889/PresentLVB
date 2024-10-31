@@ -22,6 +22,13 @@ export default function useStock() {
 
   const isEditModalVisible = ref(false);
   const editPresent = ref({});
+  //permiss branches
+  const validBranchCodes = [
+    'LVB030', 'LVB031', 'LVB032', 'LVB050', 'LVB051', 'LVB052', 
+    'LVB053', 'LVB060', 'LVB070', 'LVB071', 'LVB080', 'LVB081', 
+    'LVB090', 'LVB091', 'LVB100', 'LVB110'
+  ];
+  
   const { t, locale } = useI18n();
 
   // Function to load data from API
@@ -256,6 +263,11 @@ export default function useStock() {
     loadData(); // Call loadData whenever selectedBranch changes
   });
 
+  // Define the condition permiss
+const isAuthorized = computed(() =>
+  profile.value.DEP_CODE === 'LVB010010' || validBranchCodes.includes(profile.value.BRN_CODE)
+);
+
   return {
     Edit,
     data,
@@ -282,5 +294,6 @@ export default function useStock() {
     checkQuantityInput,
     getPresentName,
     removeRegister,
+    isAuthorized
   };
 }
