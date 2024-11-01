@@ -265,7 +265,8 @@ export default function useStock() {
 
   // Define the condition permiss
 const isAuthorized = computed(() =>
-  profile.value.DEP_CODE === 'LVB010010' || validBranchCodes.includes(profile.value.BRN_CODE)
+  profile.value.DEP_CODE === 'LVB010010'
+  // profile.value.DEP_CODE === 'LVB010010' || validBranchCodes.includes(profile.value.BRN_CODE)
 );
 
   return {
