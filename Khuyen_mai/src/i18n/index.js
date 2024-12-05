@@ -117,6 +117,7 @@ const messages = {
     text_edit_again:"Do you want to Edit again ?",
     authorize_title:"Authorizer",
     look:"Look",
+    export:"export",
   },
   la: {
     project_name: "ການລົງທະບຽນຂອງລາງວັນ",
@@ -233,6 +234,7 @@ const messages = {
         text_edit_again:"ທ່ານຕ້ອງການແກ້ໄຂອີກຄັ້ງບໍ່ ?",
         authorize_title:"ຜູ້ທີ່ອະນຸມັດ",
         look:"ເບຶ່ງ",
+        export:"ດາວໂຫຼດ",
   },
   vn: {
     project_name: "Đăng ký giải thưởng",
@@ -349,6 +351,7 @@ const messages = {
      text_edit_again:"Bạn muốn chính sửa lại không ?",
      authorize_title:"Người chấp thuận",
      look:"Xem",
+     export:"Tải về",
   },
 };
 

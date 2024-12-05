@@ -37,6 +37,12 @@
           ></el-option>
         </el-select>
       </div>
+        <!-- download button-->
+        <div style="margin-left: auto;margin-top: auto">
+        <el-button type="primary" @click="exportToExcel()"><el-icon><Download /></el-icon>&nbsp;{{
+          $t("export")
+        }}</el-button>
+       </div>
     </div>
     <!-- table -->
     <el-table
@@ -179,7 +185,7 @@
 </template>
 
 <script setup>
-import { Check } from "@element-plus/icons-vue";
+import { Check,Download } from "@element-plus/icons-vue";
 import useConfirmReward from "./confirmReward";
 const {
   Position,
@@ -197,6 +203,7 @@ const {
   lookDetail,
   isDialogVisible,
   modalForm,
+  exportToExcel
 } = useConfirmReward();
 </script>
 

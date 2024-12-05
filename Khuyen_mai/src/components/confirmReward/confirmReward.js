@@ -3,6 +3,7 @@ import { computed, onMounted, ref, watch } from "vue";
 import axios from "axios";
 import { useI18n } from "vue-i18n"; // For multilingual support
 import { Position } from "@element-plus/icons-vue";
+import * as XLSX from 'xlsx';
 const apiUrl = import.meta.env.VITE_API_URL;
 
 export default function useConfirmReward() {
@@ -150,6 +151,25 @@ export default function useConfirmReward() {
     }
     console.log('row',row.EMP_NAME);
   }
+  //download to excel
+  const exportToExcel=async()=>{
+    console.log('approved=>',accountData.value);
+    
+    if (accountData.value.length === 0) {
+      ElMessage.warning("No data to export");
+      return;
+    }
+  
+    // Convert accountData to a worksheet
+    const worksheet = XLSX.utils.json_to_sheet(accountData.value);
+  
+    // Create a new workbook and add the worksheet
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "client approved");
+  
+    // Export the workbook to an Excel file
+    XLSX.writeFile(workbook, "client_approved.xlsx");
+  }
 
   onMounted(() => {
     loadData();
@@ -180,6 +200,7 @@ export default function useConfirmReward() {
     editAgain,
     lookDetail,
     isDialogVisible,
-    modalForm
+    modalForm,
+    exportToExcel
   };
 }

@@ -75,7 +75,7 @@ export default function useStock() {
       if (response.data.error === "0") {
         ElMessage.success("Present created successfully!");
         isCreateModalVisible.value = false; // Close the modal
-        loadData(); // Reload data after creating
+        await loadData(); // Reload data after creating
         resetNewPresent(); // Reset form data
       } else if (response.data.error === "2") {
         ElMessage.error(t("present_dup"));
@@ -175,7 +175,7 @@ export default function useStock() {
       if (response.data.error === "0") {
         ElMessage.success("Present updated successfully!");
         isEditModalVisible.value = false; // Close the modal
-        loadData(); // Reload data after editing
+       await loadData(); // Reload data after editing
       } else {
         ElMessage.error(response.data.message);
       }
